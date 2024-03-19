@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector> // Include vector header for dynamic array usage
 #include "Employee.h"
 
 using namespace std;
@@ -12,7 +13,7 @@ public:
     Manager(string theName, double theWage, double theHours, double theBonus)
         : Employee(theName, theWage, theHours), bonus(theBonus) {}
 
-    double calcPay() const override {
+    double calcPay() const {
         return Employee::calcPay() + bonus;
     }
 };
@@ -22,7 +23,7 @@ int main() {
     cout << "Enter number of managers: ";
     cin >> numManagers;
 
-    Manager* managers[numManagers];
+    vector<Manager*> managers; // Use vector for dynamic array
 
     for (int i = 0; i < numManagers; ++i) {
         string name;
@@ -41,7 +42,7 @@ int main() {
         cout << "Enter manager " << i << " bonus: ";
         cin >> bonus;
 
-        managers[i] = new Manager(name, wage, hours, bonus);
+        managers.push_back(new Manager(name, wage, hours, bonus)); // Add Manager pointer to vector
     }
 
     double highestPay = 0.0;
